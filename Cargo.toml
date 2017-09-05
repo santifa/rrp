@@ -1,0 +1,7 @@
+[package]
+name = "rrp"
+version = "0.1.0"
+authors = ["Henrik Jürges <juerges.henrik@gmail.com>"]
+
+[dependencies]
+nom = "*"
