@@ -90,7 +90,7 @@ impl<'a> fmt::Display for Host<'a> {
         match self {
             &Host::IPv4(a) => write!(f, "{}", a),
             &Host::Named(a) => write!(f, "{}", a),
-            &Host::IPvLiteral(a) => write!(f, "{}", a),
+            &Host::IPvLiteral(a) => write!(f, "[{}]", a),
         }
     }
 }
@@ -269,11 +269,11 @@ named!(dec_octed<&[u8]>, recognize!(many_m_n!(1, 3, digit)));
 
 /// Parse an ipv6 or a future address
 named!(ip_literal<&[u8]>,
-       recognize!(delimited!(
+       delimited!(
            tag!("["),
            alt!(ipv6_address | ipv_future),
            tag!("]")
-       ))
+       )
 );
 
 
@@ -563,7 +563,7 @@ mod test {
         btest!(host, "", Host::Named(""));
         btest!(host, "127.0.0.1", Host::IPv4("127.0.0.1"));
         btest!(host, "example.com", Host::Named("example.com"));
-        btest!(host, "[2001:db8::7]", Host::IPvLiteral("[2001:db8::7]"));
+        btest!(host, "[2001:db8::7]", Host::IPvLiteral("2001:db8::7"));
     }
 
     #[test]
@@ -608,7 +608,7 @@ mod test {
 
     #[test]
     fn test_ip_literal() {
-        btest!(ip_literal, "[2001:db8::7]", &b"[2001:db8::7]"[..]);
+        btest!(ip_literal, "[2001:db8::7]", &b"2001:db8::7"[..]);
     }
 
     #[test]
