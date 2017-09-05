@@ -4,6 +4,8 @@ use nom::{ErrorKind, IResult};
 use nom::{alpha, digit, hex_digit, is_alphanumeric, is_digit, is_hex_digit};
 use std::fmt;
 use std::str;
+/// RRP is a collection of parsers for RDF data written in Rust.
+/// Copyright (C) 2017  Henrik Jürges; see the LICENSE file in this repo
 ///
 /// # A module for parsing URI's.
 ///
@@ -17,9 +19,7 @@ use std::str;
 /// (RFC3986 ABNF)[https://tools.ietf.org/html/rfc3986#appendix-A].
 ///
 
-///
-/// Missing: pct-encoded (something implemented), relative, reference
-///
+/// Missing: pct-encoded (something implemented)
 #[derive(Debug)]
 struct URI<'a> {
     scheme: String,

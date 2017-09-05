@@ -3,7 +3,7 @@ A collection of RDF parser written in Rust.
 
 At the moment only the RFC 3986 (URI) is implemented.
 
-## TODO
+# TODO
 
 The main objective for me is to build a set of parsers which are
 reliable and fast. I intend to only implement the parser and provide
@@ -18,3 +18,13 @@ needed discarding unused ones.
 [ ] Turtle
 [ ] NQuads
 [ ] Callbacks
+
+# Contributions
+
+Tests, Code, Documentation are highly welcome!
+
+# License
+
+Copyright (c) 2017 by Henrik Jürges
+
+Distributed under the [GPL v3](https://github.com/santifa/rrp/blob/master/LICENSE)
