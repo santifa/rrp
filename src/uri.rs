@@ -29,6 +29,58 @@ struct URI<'a> {
     fragment: Option<&'a str>,
 }
 
+impl<'a> URI<'a> {
+    fn new(s: &str) -> Option<URI> {
+        if let IResult::Done(_, uri) = uri_ref(s.as_bytes()) {
+            Some(uri)
+        } else {
+            None
+        }
+    }
+
+    fn validate(s: &str) -> bool {
+        if let IResult::Done(_, _) = uri_ref(s.as_bytes()) {
+            true
+        } else {
+            false
+        }
+    }
+}
+
+impl<'a> fmt::Display for URI<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "{}{}{}{}{}",
+            {
+                if self.scheme == "" { "" } else { &self.scheme }
+            },
+            {
+                if let Some(ref d) = self.domain {
+                    d.to_string()
+                } else {
+                    String::from("")
+                }
+            },
+            self.path.to_string(),
+            {
+                if let Some(q) = self.query {
+                    "?".to_owned() + q
+                } else {
+                    String::from("")
+                }
+            },
+            {
+                if let Some(f) = self.fragment {
+                    "#".to_owned() + f
+                } else {
+                    String::from("")
+                }
+            }
+        )
+    }
+}
+
 /// The domain holds the user host and port information
 #[derive(Debug, PartialEq)]
 struct Domain<'a> {
